@@ -115,48 +115,57 @@ function playPop() {
 }
 
 /*
-    Initialize the grid of the game
+    Main function (Initialize the game)
 */
 
-const grid = document.querySelector('.grid');
+function setUp() {
+    // Initialize the cells of the game:
 
-// The grid is 4x4, so:
-for (let i = 1; i <= 4; i++) {
-    for (let j = 1; j <= 4; j++) {
-        let cell = document.createElement('div');   // New cell HTML element
-        cell.className = 'cell';    // Cell className for styles
-        cell._data = new Cell(i,j);     // Link to a JS object
-        grid.appendChild(cell);     // Display
-    }
-}
-
-const cells = document.querySelectorAll('.cell');
-
-/*
-    Initialize the pieces of the game
-*/
-
-var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-for (let i = 1; i <= 4; i++) {
-    for (let j = 1; j <= 4; j++) {
-        if (i == 4 && j == 4) {
-            break;
+    // The grid is 4x4, so:
+    for (let i = 1; i <= 4; i++) {
+        for (let j = 1; j <= 4; j++) {
+            let cell = document.createElement('div');   // New cell HTML element
+            cell.className = 'cell';    // Cell className for styles
+            cell._data = new Cell(i,j);     // Link to a JS object
+            grid.appendChild(cell);     // Display
         }
+    }
 
-        let piece = document.createElement('div');  // New piece HTML element
-        piece.className = 'piece';  // Piece className for styles
+    cells = document.querySelectorAll('.cell');
 
-        let number = assignRandomNumber();  // Assign a random number
-        piece.textContent = number;
-        piece._data = new Piece(number, i, j);  // Link JS object
+    // Initialize the pieces of the game:
 
-        piece.setAttribute('onclick','this._data.move(this)');   // Add move method
+    for (let i = 1; i <= 4; i++) {
+        for (let j = 1; j <= 4; j++) {
+            if (i == 4 && j == 4) {
+                break;
+            }
 
-        for (let n = 0; n < cells.length; n++) {
-            if (cells[n]._data.x_coord == i && cells[n]._data.y_coord == j) {
-                cells[n].appendChild(piece);    // Put each piece in the correct place
-                cells[n]._data.isEmpty = false;
+            let piece = document.createElement('div');  // New piece HTML element
+            piece.className = 'piece';  // Piece className for styles
+
+            let number = assignRandomNumber();  // Assign a random number
+            piece.textContent = number;
+            piece._data = new Piece(number, i, j);  // Link JS object
+
+            piece.setAttribute('onclick','this._data.move(this)');   // Add move method
+
+            for (let n = 0; n < cells.length; n++) {
+                if (cells[n]._data.x_coord == i && cells[n]._data.y_coord == j) {
+                    cells[n].appendChild(piece);    // Put each piece in the correct place
+                    cells[n]._data.isEmpty = false;
+                }
             }
         }
     }
 }
+
+/*
+    Main execution
+*/
+
+const grid = document.querySelector('.grid');
+var cells;
+var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+
+setUp();
