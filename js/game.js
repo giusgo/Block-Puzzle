@@ -42,13 +42,15 @@ class Piece {
 
             free_cell.cell.appendChild(piece);
             free_cell.cell._data.isEmpty = false;
+
+            checkWin();     // Check if the user beats the game
         }, 300);
         
     }
 }
 
 /*
-    Functions
+    Aside functions
 */
 
 // Assign a random number between 1 and 15
@@ -109,6 +111,25 @@ function checkAdjacency(x, y) {
     return null;
 }
 
+// Check if someone beats the game
+function checkWin() {
+    let sequence_in_game = [];  // Array of the numbers set on the game
+
+    for (let i = 0; i < cells.length - 1; i++) {
+        if (cells[i].firstChild != null) {
+            sequence_in_game.push(cells[i].firstChild._data.number);
+        }
+    }
+
+    let compare_to = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+
+    // If all the pieces are in place, then:
+    if (JSON.stringify(sequence_in_game) == JSON.stringify(compare_to)) {
+        console.log('YES.');
+    }
+}
+
+// Play a 'pop' sound
 function playPop() {
     var audio = new Audio('../misc/pop.wav');
     audio.play();
@@ -168,4 +189,4 @@ const grid = document.querySelector('.grid');
 var cells;
 var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
-setUp();
+setUp();    // Set everything for the game
