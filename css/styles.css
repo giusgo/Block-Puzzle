@@ -1,0 +1,147 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    overflow: hidden;
+    user-select: none;
+
+    /* Color palette (Catppuccin: https://github.com/catppuccin/catppuccin) */
+    --pink: #f5bde6;
+    --mauve: #c6a0f6;
+    --red: #ed8796;
+    --peach: #f5a97f;
+    --green: #a6da95;
+    --sky: #91d7e3;
+    --mantle: #1e2030;
+
+    --dimension: 500px;
+}
+
+body {
+    background-color: var(--mauve);
+    font-family: 'Ubuntu', sans-serif;
+}
+
+/* ------- MAIN CONTENT ------- */
+
+.main-content {
+    width: 100%;
+}
+
+/* ------- GAME ------- */
+
+.game {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    /* Dimensions of the game */
+    width: var(--dimension);
+    height: var(--dimension);
+}
+
+.game .frame {
+    width: 100%;
+    height: 100%;
+
+    border-radius: 20px;
+    border: 15px solid var(--mantle);
+    background-color: var(--mantle);
+}
+
+.game .grid {
+    width: 100%;
+    height: 100%;
+
+    border-radius: 10px;
+    background-color: var(--pink);
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.game .grid .cell {
+    width: 25%;
+    height: 25%;
+}
+
+.game .grid .cell .piece {
+    width: 100%;
+    height: 100%;
+
+    border-radius: 10px;
+    border-bottom: 5px solid #5d9f47;
+    border-right: 5px solid #5d9f47;
+    background-color: var(--green);
+
+    line-height: calc((var(--dimension) * 0.25) - 10px);
+    font-size: 60px;
+    text-align: center;
+    color: #5d9f47;
+
+    cursor: pointer;
+}
+
+.game .grid .cell .piece.moveUp {
+    animation: moveUp;
+    animation-duration: .3s;
+}
+
+.game .grid .cell .piece.moveDown {
+    animation: moveDown;
+    animation-duration: .3s;
+}
+
+.game .grid .cell .piece.moveLeft {
+    animation: moveLeft;
+    animation-duration: .3s;
+}
+
+.game .grid .cell .piece.moveRight {
+    animation: moveRight;
+    animation-duration: .3s;
+}
+
+/* ------- Animations ------- */
+
+@keyframes moveUp {
+    to {
+        transform: translateY( calc((var(--dimension) * -0.23)) );
+    }
+}
+
+@keyframes moveDown {
+    to {
+        transform: translateY( calc((var(--dimension) * 0.23)) );
+    }
+}
+
+@keyframes moveLeft {
+    to {
+        transform: translateX( calc((var(--dimension) * -0.23)) );
+    }
+}
+
+@keyframes moveRight {
+    to {
+        transform: translateX( calc((var(--dimension) * 0.23)) );
+    }
+}
+
+/* ------- MEDIAQUERIES ------- */
+
+@media (max-width: 810px) {
+    html {
+        --dimension: 350px;
+    }
+
+    .game .grid .cell .piece {
+        font-size: 40px;
+    }
+}
+  
