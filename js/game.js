@@ -24,7 +24,7 @@ class Piece {
             return; // If there's no free space
         }
 
-        playPop();
+        playPop(1);
 
         // Set new coords
         this.x_coord = free_cell.x;
@@ -124,15 +124,33 @@ function checkWin() {
     let compare_to = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
     // If all the pieces are in place, then:
-    if (JSON.stringify(sequence_in_game) == JSON.stringify(compare_to)) {
-        console.log('YES.');
+    if (JSON.stringify(sequence_in_game) != JSON.stringify(compare_to)) {
+        return;
     }
+
+    const score = document.querySelector('.score');
+    score.classList.add('show');
+    setTimeout(function() {
+        score.classList.remove('inactive');
+        score.classList.add('active');
+    });
 }
 
 // Play a 'pop' sound
-function playPop() {
-    var audio = new Audio('../misc/pop.wav');
-    audio.play();
+function playPop(n) {
+    const audio1 = new Audio('../misc/pop.wav');
+    const audio2 = new Audio('../misc/pop_2.wav');
+    
+    switch (n) {
+        case 1:
+            audio1.play();
+            break;
+        case 2:
+            audio2.play();
+            break;
+        default:
+            break;
+    }
 }
 
 /*
